@@ -1,0 +1,92 @@
+CREATE TABLE Suppliers
+(
+Supplier_Number VARCHAR CONSTRAINT Suppliers_pk PRIMARY KEY NOT NULL,
+Supplier_Name VARCHAR(50) NOT NULL,
+Supplier_Address VARCHAR(75),
+Supplier_TeleNumber INTEGER(10),
+);
+
+CREATE TABLE Purchasing_Officers
+(
+Purchasing_officer_Number VARCHAR CONSTRAINT Purchasing Officers_pk PRIMARY KEY NOT NULL,
+Purchasing_officer_Name VARCHAR(25) NOT NULL,
+Purchasing_officer_Email VARCHAR(15) NOT NULL,
+Supplier_Number
+	CONSTRAINT Purchasing Officers_fk_Suppliers
+	REFERNCES Suppliers(Supplier_Number),
+);
+
+CREATE TABLE Quotations
+(
+Quotation_Number VARCHAR CONSTRAINT Quotations_pk PRIMARY KEY NOT NULL,
+RFQ_number 
+	CONSTRAINT Quotations_fk_ Request_For_Quotations
+	REFERNCES Request_For_Quotations(RFQ_number),
+Purchasing_officer_Number 
+	CONSTRAINT Quotations_fk_Purchasing_Officers
+	REFERNCES Purchasing_Officers(Purchasing_officer_Number),
+Item_Number 
+	CONSTRAINT Quotations_fk_Items
+	REFERNCES Items(Item_Number ),
+Sales_Person_Number 
+	CONSTRAINT Quotations_fk_Sales_Persons
+	REFERNCES Sales_Person(Sales_Person_Number),
+);
+
+CREATE TABLE Request_For_Quotations
+(
+RFQ_number VARCHAR CONSTRAINT Request_For_Quotations_pk PRIMARY KEY NOT NULL,
+Purchasing_officer_Number 
+	CONSTRAINT Request_For_Quotations_fk_ Purchase_Orders
+	REFERNCES  Purchase_Orders(Purchasing_officer_Number),
+Supplier_Number 
+	CONSTRAINT Request_For_Quotations_fk_Suppliers
+	REFERNCES Suppliers(Supplier_Number),
+);
+
+CREATE TABLE Items
+(
+Item_Number VARCHAR CONSTRAINT Items_pk PRIMARY KEY NOT NULL,
+Item_Name VARCHAR(25) NOT NULL,
+Item_Description VARCHAR(255),
+Item_Cost_Price DOUBLE(15),
+Item_Sale_Price DOUBLE(15),
+);
+
+CREATE TABLE Purchase_Orders
+(
+Purchase_Order_Number VARCHAR CONSTRAINT Purchase_Orders_pk PRIMARY KEY NOT NULL,
+Quotation_Number 
+	CONSTRAINT Purchase_Orders_fk_Quotations
+	REFERNCES Quotations(Quotation_Number ),
+Item_Number 
+	CONSTRAINT Purchase_Orders_Items
+	REFERNCES Items(Item_Number ),
+Invoice_Date DATE NOT NULL,
+Due_Date DATE NOT NULL,
+);
+
+CREATE  TABLE Sales_Persons
+(
+Sales_Person_Number VARCHAR CONSTRAINT Sales_Persons_pk PRIMARY KEY NOT NULL,
+Sales_Person VARCHAR(30) NOT NULL,
+Sales_Person_Address VARCHAR(50),
+Sales_Person_Contact VARCHAR(10),
+Sales_Person_Email VARCHAR(25),
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
